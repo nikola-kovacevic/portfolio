@@ -1,0 +1,26 @@
+{
+  "name": "portfolio",
+  "version": "0.0.0",
+  "description": "Portfolio Website",
+  "main": "index.js",
+  "scripts": {
+    "build": "gulp"
+  },
+  "author": "Nikola Kovacevic",
+  "license": "ISC",
+  "devDependencies": {
+    "del": "^5.1.0",
+    "eslint": "^7.1.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-csso": "^4.0.1",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-image": "^6.1.0",
+    "gulp-uglify": "^3.0.2"
+  },
+  "browserslist": [
+    "last 2 version",
+    "> 2%"
+  ],
+  "dependencies": {}
+}
