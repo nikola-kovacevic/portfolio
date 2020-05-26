@@ -1,36 +1,60 @@
-body {
+body,
+html {
   font-family: "Cardo", serif;
+  font-size: 16px;
 }
 
 h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h2 {
   font-family: "Oswald", sans-serif;
   text-transform: uppercase;
+}
+
+section.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+article {
+  font-size: calc(1rem + 2vmin);
+}
+
+article.intro {
+  font-family: "Oswald", sans-serif;
+  font-size: calc(1rem + 5vmin);
 }
 
 .container {
   margin-right: auto;
   margin-left: auto;
+  display: flex;
+  flex-direction: column;
 }
 
-@media only screen and (min-width: 48em) {
-  .container {
-    width: 49rem;
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: white;
+    color: black;
   }
 }
 
-@media only screen and (min-width: 64em) {
-  .container {
-    width: 65rem;
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: black;
+    color: white;
   }
 }
 
-@media only screen and (min-width: 75em) {
-  .container {
-    width: 76rem;
+@media screen and (min-width: 320px) {
+  body,
+  html {
+    font-size: calc(16px + 6 * ((100vw - 320px) / 680));
+  }
+}
+@media screen and (min-width: 1000px) {
+  body,
+  html {
+    font-size: 22px;
   }
 }

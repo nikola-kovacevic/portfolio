@@ -1,46 +1,171 @@
 <!DOCTYPE html>
-
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Nikola Kovacevic</title>
-    <meta name="description" content="Personal Portfolio" />
-    <meta name="author" content="Nikola Kovacevic" />
+    <!-- Primary Meta Tags -->
+    <title>Nikola Kovačević</title>
+    <meta name="title" content="Nikola Kovačević" />
+    <meta
+      name="description"
+      content="Hello. I’m Nikola and I'm an experienced software architect. I’m motivated by big problems, and if you’ve got some, I can help solve them."
+    />
 
-    <!-- FONTS -->
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kovacevic.dev/" />
+    <meta property="og:title" content="Nikola Kovačević" />
+    <meta
+      property="og:description"
+      content="Hello. I’m Nikola and I'm an experienced software architect. I’m motivated by big problems, and if you’ve got some, I can help solve them."
+    />
+    <meta property="og:image" content="" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://kovacevic.dev/" />
+    <meta property="twitter:title" content="Nikola Kovačević" />
+    <meta
+      property="twitter:description"
+      content="Hello. I’m Nikola and I'm an experienced software architect. I’m motivated by big problems, and if you’ve got some, I can help solve them."
+    />
+    <meta property="twitter:image" content="" />
+
+    <!-- Fonts -->
     <link
       href="https://fonts.googleapis.com/css?family=Cardo:400,700|Oswald"
       rel="stylesheet"
     />
 
-    <!-- STYLES -->
+    <!-- Styles -->
     <link rel="stylesheet" href="./css/styles.css?v=1.0" />
   </head>
 
   <body>
     <div class="container">
-      <div id="intro">
-        <h1>Nikola Kovacevic</h1>
-        <h1 class="intro">
-          Hello. I’m Nikola and I am a high-performance technologist skilled at
-          defining, designing and implementing a highly secure, highly available
-          applications in cloud environments.
-        </h1>
-      </div>
-      <div id="about">
+      <!-- Introduction -->
+      <section id="intro" class="hero">
+        <h1>Nikola Kovačević</h1>
+        <article class="intro">
+          Hello. I’m Nikola and I'm an experienced software architect. I’m
+          motivated by big problems, and if you’ve got some, I can help solve
+          them.
+        </article>
+      </section>
+
+      <!-- Image -->
+      <section id="about">
         <picture>
           <source
             media="(max-width: 799px)"
-            srcset="./assets/images/small.png"
+            srcset="./assets/images/small.jpg"
           />
-          <source media="(min-width: 800px)" srcset="./assets/images/big.png" />
-          <img src="./assets/images/big.png" alt="Bigger picture" />
+          <source
+            media="(min-width: 800px)"
+            srcset="./assets/images/large.jpg"
+          />
+          <img
+            src="./assets/images/large.jpg"
+            alt="Nikola Kovacevic"
+            style="width: 100%;"
+          />
         </picture>
-      </div>
-      <div id="resume"></div>
-      <div id="publications"></div>
-      <div id="contact"></div>
+      </section>
+
+      <!-- Content -->
+      <section id="content">
+        <article>
+          <h2 class="subtitle">Hello World</h2>
+          <p>
+            I consider myself a problem solver, and an active thinker. Most of
+            my time I am defining, designing, and implementing highly secure,
+            highly available applications in cloud environments. I have been
+            organizing the build process, getting user and customer feedback,
+            and connecting the pieces into magnificent software solutions.
+          </p>
+          <p>
+            I love working with people to do things bigger than I could
+            accomplish alone. Currently, I am working with Movilitas as Managing
+            Officer | Principal Software Architect. I am training and leading an
+            amazing team of developers on a very successful SaaS solution for
+            the supply chain domain -
+            <a
+              href="https://www.movilitas.com/expertise/movilitas-cloud"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Movilitas.Cloud.
+            </a>
+            I’m passionate, expressive, a multi-talented developer with a
+            natural ability to entertain and inspire.
+          </p>
+          <p>
+            Together with my colleagues I started a side project -
+            <a
+              href="https://inquisitor.dev"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Inquisitor.
+            </a>
+            Inquisitor is designed to provide businesses with power of
+            understanding and quantifying software development processes. By
+            converting data from Atlassian Jira it outputs billable hours and
+            quantifies data per developer. We started this project to fit our
+            business needs, and to help us plan sprints with ease.
+          </p>
+          <p>
+            If you are interested in learning more about me professionally you
+            can
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              view my resume.
+            </a>
+          </p>
+          <p>
+            Together with my girlfriend I enjoy traveling and experiencing
+            different places and cultures. Travel photography powers my
+            creativity and it helps me live in the moment. Besides this, I've
+            been getting into writing. If you are interested in what I have to
+            say my content
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              here.
+            </a>
+          </p>
+        </article>
+        <article class="publications"></article>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact">
+        <article>
+          <h2 class="subtitle">Give me your hardest problem</h2>
+          <a href="mailto:nikolakovacevic.zg@gmail.com">
+            nikolakovacevic.zg@gmail.com
+          </a>
+          <a
+            href="https://www.linkedin.com/in/nikolakovacevic/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
+          <a
+            href="https://github.com/nikola-kovacevic"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://www.facebook.com/nikolakovacevic.zg"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Facebook
+          </a>
+        </article>
+      </section>
     </div>
   </body>
 </html>
