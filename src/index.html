@@ -39,6 +39,11 @@
     />
 
     <!-- Styles -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/progressive-image.js/dist/progressive-image.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/progressive-image.js/dist/progressive-image.js"></script>
     <link rel="stylesheet" href="./css/styles.css?v=1.0" />
 
     <!-- Favicons -->
@@ -125,7 +130,7 @@
       <!-- Introduction -->
       <section id="intro" class="hero">
         <h1>Nikola Kovačević</h1>
-        <article class="intro">
+        <article class="intro animated fadeInUp">
           Hello. I’m Nikola and I'm an experienced software architect. I’m
           motivated by big problems, and if you’ve got some, I can help solve
           them.
@@ -134,21 +139,14 @@
 
       <!-- Image -->
       <section id="about">
-        <picture>
-          <source
-            media="(max-width: 799px)"
-            srcset="./assets/images/small.jpg"
-          />
-          <source
-            media="(min-width: 800px)"
-            srcset="./assets/images/large.jpg"
-          />
-          <img
-            src="./assets/images/large.jpg"
-            alt="Nikola Kovacevic"
-            style="width: 100%;"
-          />
-        </picture>
+        <a
+          href="./assets/images/small.jpg"
+          data-srcset="./assets/images/small.jpg 800w, ./assets/images/large.jpg 1200w"
+          data-sizes="100vw"
+          class="progressive replace"
+        >
+          <img src="./assets/images/tiny.jpg" class="preview" alt="image" />
+        </a>
       </section>
 
       <!-- Content -->

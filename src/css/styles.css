@@ -16,9 +16,12 @@ html {
 }
 
 section.hero {
-  height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+picture.hero-image img {
+  margin: calc(1rem + 2vmin) 0;
 }
 
 /* Typography */
@@ -36,6 +39,7 @@ article.intro {
   font-family: "Oswald", sans-serif;
   font-size: calc(1rem + 5vmin);
   line-height: calc(1.5rem + 5vmin);
+  opacity: 0;
 }
 
 /* Links */
@@ -53,6 +57,42 @@ a:active {
 
 a:hover {
   color: #63a0e4;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    transform: translate3d(0, 40px, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeInUp {
+  from {
+    transform: translate3d(0, 40px, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+}
+
+.fadeInUp {
+  opacity: 0;
+  animation-name: fadeInUp;
+  -webkit-animation-name: fadeInUp;
 }
 
 /* Media queries */
