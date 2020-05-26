@@ -2,12 +2,17 @@ body,
 html {
   font-family: "Cardo", serif;
   font-size: 16px;
+  background-color: white;
+  color: #031411;
 }
 
-h1,
-h2 {
-  font-family: "Oswald", sans-serif;
-  text-transform: uppercase;
+/* Containers */
+.wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 section.hero {
@@ -16,33 +21,76 @@ section.hero {
   flex-direction: column;
 }
 
+/* Typography */
+h1,
+h2 {
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
+}
+
 article {
-  font-size: calc(1rem + 2vmin);
+  font-size: calc(0.5rem + 2vmin);
 }
 
 article.intro {
   font-family: "Oswald", sans-serif;
   font-size: calc(1rem + 5vmin);
+  line-height: calc(1.5rem + 5vmin);
 }
 
-.container {
-  margin-right: auto;
-  margin-left: auto;
-  display: flex;
-  flex-direction: column;
+/* Links */
+a,
+a:visited,
+a:hover,
+a:active {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  position: relative;
+  transition: 0.5s color ease;
+  text-decoration: none;
+  color: #0567d6;
 }
 
+a:hover {
+  color: #63a0e4;
+}
+
+/* Media queries */
 @media (prefers-color-scheme: light) {
-  body {
+  body,
+  html {
     background-color: white;
-    color: black;
+    color: #031411;
+  }
+
+  a,
+  a:visited,
+  a:hover,
+  a:active {
+    color: #0567d6;
+  }
+
+  a:hover {
+    color: #63a0e4;
   }
 }
 
 @media (prefers-color-scheme: dark) {
-  body {
-    background-color: black;
+  body,
+  html {
+    background-color: #282a36;
     color: white;
+  }
+
+  a,
+  a:visited,
+  a:hover,
+  a:active {
+    color: #bd93f9;
+  }
+
+  a:hover {
+    color: #ff79c6;
   }
 }
 
@@ -51,10 +99,19 @@ article.intro {
   html {
     font-size: calc(16px + 6 * ((100vw - 320px) / 680));
   }
+
+  .wrapper {
+    width: 85%;
+  }
 }
+
 @media screen and (min-width: 1000px) {
   body,
   html {
     font-size: 22px;
+  }
+
+  .wrapper {
+    width: 80%;
   }
 }
