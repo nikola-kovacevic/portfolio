@@ -15,13 +15,12 @@ html {
   box-sizing: border-box;
 }
 
-section.hero {
-  display: flex;
-  flex-direction: column;
-}
-
-picture.hero-image img {
-  margin: calc(1rem + 2vmin) 0;
+.primary {
+  left: 50%;
+  margin-left: -50vw;
+  width: 100vw;
+  height: calc(628 * (100vw / 1200));
+  background-color: #f3f3f3;
 }
 
 /* Typography */
@@ -29,6 +28,10 @@ h1,
 h2 {
   font-family: "Oswald", sans-serif;
   text-transform: uppercase;
+}
+
+.hero h1 {
+  margin-bottom: 0;
 }
 
 article {
@@ -39,10 +42,15 @@ article.intro {
   font-family: "Oswald", sans-serif;
   font-size: calc(1rem + 5vmin);
   line-height: calc(1.5rem + 5vmin);
+  margin: 2rem 0;
   opacity: 0;
 }
 
 /* Links */
+#contact article a {
+  display: block;
+}
+
 a,
 a:visited,
 a:hover,
@@ -132,6 +140,10 @@ a:hover {
   a:hover {
     color: #ff79c6;
   }
+
+  .primary {
+    background-color: #f3f3f3;
+  }
 }
 
 @media screen and (min-width: 320px) {
@@ -153,5 +165,9 @@ a:hover {
 
   .wrapper {
     width: 80%;
+  }
+
+  .primary {
+    background-color: #333333;
   }
 }
