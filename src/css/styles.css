@@ -49,6 +49,7 @@ article.intro {
 /* Links */
 #contact article a {
   display: block;
+  margin-bottom: 0.5em;
 }
 
 a,
