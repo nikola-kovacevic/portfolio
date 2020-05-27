@@ -16,6 +16,7 @@
     "gulp-csso": "^4.0.1",
     "gulp-htmlmin": "^5.0.1",
     "gulp-image": "^6.1.0",
+    "gulp-inline-source": "^4.0.0",
     "gulp-uglify": "^3.0.2"
   },
   "browserslist": [

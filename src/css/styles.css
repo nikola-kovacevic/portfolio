@@ -6,6 +6,10 @@ html {
   color: #031411;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 /* Containers */
 .wrapper {
   position: relative;

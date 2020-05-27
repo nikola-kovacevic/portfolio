@@ -5,6 +5,7 @@ const csso = require("gulp-csso");
 const htmlmin = require("gulp-htmlmin");
 const image = require("gulp-image");
 const uglify = require("gulp-uglify");
+const inlineSource = require("gulp-inline-source");
 
 const DIST = "./dist";
 const SRC = "./src";
@@ -27,10 +28,14 @@ const DESTINATION = {
   SCRIPTS: `${DIST}/${JS}`,
   STYLES: `${DIST}/${CSS}`,
   FAVICON: `${DIST}/${FAVICON}`,
+  HTML: `${DIST}/**/*.html`,
 };
 
 const TASK = {
-  CLEAN: "clean",
+  CLEAN: {
+    SOURCE: "clean_source",
+    DESTINATION: "clean_destination",
+  },
   ASSETS: {
     MOVE_ICONS: "move_icons",
     MINIFY_ICONS: "minify_icons",
@@ -42,10 +47,19 @@ const TASK = {
     STYLES: "styles",
     FAVICON: "favicon",
   },
+  INLINE: {
+    SCRIPTS: "inline_scripts",
+  },
 };
 
-gulp.task(TASK.CLEAN, () =>
+gulp.task(TASK.CLEAN.SOURCE, () =>
   del([DIST])
+    .then((deleted) => console.log(`Deletions: ${deleted}`))
+    .catch(console.error)
+);
+
+gulp.task(TASK.CLEAN.DESTINATION, () =>
+  del([DESTINATION.STYLES, DESTINATION.SCRIPTS])
     .then((deleted) => console.log(`Deletions: ${deleted}`))
     .catch(console.error)
 );
@@ -102,7 +116,18 @@ gulp.task(TASK.MINIFY.STYLES, () =>
     .pipe(gulp.dest(DESTINATION.STYLES))
 );
 
-gulp.task(
-  "default",
-  gulp.series("clean", gulp.parallel(Object.values(TASK.MINIFY)))
+gulp.task(TASK.INLINE.SCRIPTS, (done) =>
+  gulp
+    .src(DESTINATION.HTML)
+    .pipe(inlineSource({ compress: false, saveRemote: false }))
+    .pipe(gulp.dest(DIST))
+    .on("finish", () => done())
 );
+
+const DEFAULT = gulp.series(
+  TASK.CLEAN.SOURCE,
+  gulp.series(gulp.parallel(Object.values(TASK.MINIFY)), TASK.INLINE.SCRIPTS),
+  TASK.CLEAN.DESTINATION
+);
+
+gulp.task("default", DEFAULT);
