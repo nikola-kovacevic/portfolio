@@ -179,7 +179,7 @@ gulp.task(TASK.CREATE.ROBOTS, () =>
     .pipe(
       robots({
         useragent: "*",
-        allow: ["assets/"],
+        allow: ["/*"],
         disallow: [],
       })
     )
