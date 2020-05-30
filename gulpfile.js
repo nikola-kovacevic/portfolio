@@ -13,8 +13,11 @@ const DIST = "./dist";
 const SRC = "./src";
 
 const TEMP = `${DIST}/temp`;
-const IMAGES = "assets/images";
-const FAVICON = "assets/favicon";
+const ASSETS = "assets";
+const IMAGES = `${ASSETS}/images`;
+const FAVICON = `${ASSETS}/favicon`;
+const CV = "Nikola_Kovacevic_Resume.pdf";
+const SITE_URL = "https://kovacevic.dev";
 const JS = "js";
 const CSS = "css";
 
@@ -24,6 +27,7 @@ const SOURCE = {
   SCRIPTS: `${SRC}/${JS}/**/*.js`,
   STYLES: `${SRC}/${CSS}/styles.css`,
   FAVICON: `${SRC}/${FAVICON}/*`,
+  CV: `${SRC}/${ASSETS}/${CV}`,
 };
 
 const DESTINATION = {
@@ -33,6 +37,7 @@ const DESTINATION = {
   FAVICON: `${DIST}/${FAVICON}`,
   HTML: `${DIST}/**/*.html`,
   INDEX: `${DIST}/index.html`,
+  ASSETS: `${DIST}/${ASSETS}`,
   SW: {
     ORIGINAL: `${DIST}/sw.js`,
     TEMP_FILE: `${TEMP}/sw.js`,
@@ -48,6 +53,7 @@ const TASK = {
   ASSETS: {
     MOVE_ICONS: "move_icons",
     MINIFY_ICONS: "minify_icons",
+    MOVE_CV: "move_cv",
   },
   MINIFY: {
     IMAGES: "image",
@@ -164,12 +170,19 @@ gulp.task(TASK.SERVICE_WORKER.MOVE, (done) =>
     .on("finish", () => done())
 );
 
+gulp.task(TASK.ASSETS.MOVE_CV, (done) =>
+  gulp
+    .src(SOURCE.CV)
+    .pipe(gulp.dest(DESTINATION.ASSETS))
+    .on("finish", () => done())
+);
+
 gulp.task(TASK.CLEAN.TEMP, () => clean(TEMP));
 
 gulp.task(TASK.CREATE.SITEMAP, () =>
   gulp
     .src(DESTINATION.HTML, { read: false })
-    .pipe(sitemap({ siteUrl: "https://kovacevic.dev" }))
+    .pipe(sitemap({ siteUrl: SITE_URL }))
     .pipe(gulp.dest(DIST))
 );
 
@@ -199,7 +212,7 @@ gulp.task(
 const DEFAULT = gulp.series(
   TASK.CLEAN.SOURCE,
   gulp.series(
-    gulp.parallel(Object.values(TASK.MINIFY)),
+    gulp.parallel(Object.values(TASK.MINIFY), TASK.ASSETS.MOVE_CV),
     TASK.INLINE.SCRIPTS,
     TASK.CREATE.SITEMAP,
     TASK.CREATE.ROBOTS
