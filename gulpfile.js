@@ -4,12 +4,13 @@ const autoprefixer = require("gulp-autoprefixer");
 const csso = require("gulp-csso");
 const htmlmin = require("gulp-htmlmin");
 const image = require("gulp-image");
-const uglify = require("gulp-uglify");
+const uglify = require("gulp-uglify-es").default;
 const inlineSource = require("gulp-inline-source");
 
 const DIST = "./dist";
 const SRC = "./src";
 
+const TEMP = `${DIST}/temp`;
 const IMAGES = "assets/images";
 const FAVICON = "assets/favicon";
 const JS = "js";
@@ -29,12 +30,17 @@ const DESTINATION = {
   STYLES: `${DIST}/${CSS}`,
   FAVICON: `${DIST}/${FAVICON}`,
   HTML: `${DIST}/**/*.html`,
+  SW: {
+    ORIGINAL: `${DIST}/sw.js`,
+    TEMP_FILE: `${TEMP}/sw.js`,
+  },
 };
 
 const TASK = {
   CLEAN: {
     SOURCE: "clean_source",
     DESTINATION: "clean_destination",
+    TEMP: "clean_temp",
   },
   ASSETS: {
     MOVE_ICONS: "move_icons",
@@ -50,18 +56,26 @@ const TASK = {
   INLINE: {
     SCRIPTS: "inline_scripts",
   },
+  SERVICE_WORKER: {
+    MINIFY: "minify_service_worker",
+    CLEAN: {
+      ORIGINAL: "clean_original_service_worker",
+      TEMP: "clean_temp_service_worker",
+    },
+    MOVE: "move_temp_service_worker",
+    IMPLEMENT: "implement_service_worker",
+  },
 };
 
-gulp.task(TASK.CLEAN.SOURCE, () =>
-  del([DIST])
+const clean = (...filesAndFolders) =>
+  del(filesAndFolders)
     .then((deleted) => console.log(`Deletions: ${deleted}`))
-    .catch(console.error)
-);
+    .catch(console.error);
+
+gulp.task(TASK.CLEAN.SOURCE, () => clean(DIST));
 
 gulp.task(TASK.CLEAN.DESTINATION, () =>
-  del([DESTINATION.STYLES, DESTINATION.SCRIPTS])
-    .then((deleted) => console.log(`Deletions: ${deleted}`))
-    .catch(console.error)
+  clean(DESTINATION.STYLES, DESTINATION.SCRIPTS)
 );
 
 gulp.task(TASK.ASSETS.MOVE_ICONS, (done) =>
@@ -122,6 +136,37 @@ gulp.task(TASK.INLINE.SCRIPTS, (done) =>
     .pipe(inlineSource({ compress: false, saveRemote: false }))
     .pipe(gulp.dest(DIST))
     .on("finish", () => done())
+);
+
+gulp.task(TASK.SERVICE_WORKER.MINIFY, (done) => {
+  return gulp
+    .src(DESTINATION.SW.ORIGINAL)
+    .pipe(uglify())
+    .pipe(gulp.dest(TEMP))
+    .on("finish", () => done());
+});
+
+gulp.task(TASK.SERVICE_WORKER.CLEAN.ORIGINAL, () =>
+  clean(DESTINATION.SW.ORIGINAL)
+);
+
+gulp.task(TASK.SERVICE_WORKER.MOVE, (done) =>
+  gulp
+    .src(DESTINATION.SW.TEMP_FILE)
+    .pipe(gulp.dest(DIST))
+    .on("finish", () => done())
+);
+
+gulp.task(TASK.CLEAN.TEMP, () => clean(TEMP));
+
+gulp.task(
+  TASK.SERVICE_WORKER.IMPLEMENT,
+  gulp.series(
+    TASK.SERVICE_WORKER.MINIFY,
+    TASK.SERVICE_WORKER.CLEAN.ORIGINAL,
+    TASK.SERVICE_WORKER.MOVE,
+    TASK.CLEAN.TEMP
+  )
 );
 
 const DEFAULT = gulp.series(

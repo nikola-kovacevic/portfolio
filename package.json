@@ -3,10 +3,13 @@
   "version": "0.0.0",
   "description": "Portfolio Website",
   "main": "index.js",
-  "scripts": {
-    "build": "gulp"
-  },
   "author": "Nikola Kovacevic",
+  "scripts": {
+    "build": "gulp && npm run implement-pwa",
+    "build-pwa": "workbox injectManifest workbox-config.js",
+    "implement-service-worker": "gulp implement_service_worker",
+    "implement-pwa": "npm run build-pwa && npm run implement-service-worker"
+  },
   "license": "ISC",
   "devDependencies": {
     "del": "^5.1.0",
@@ -17,11 +20,10 @@
     "gulp-htmlmin": "^5.0.1",
     "gulp-image": "^6.1.0",
     "gulp-inline-source": "^4.0.0",
-    "gulp-uglify": "^3.0.2"
+    "gulp-uglify-es": "^2.0.0"
   },
   "browserslist": [
     "last 2 version",
     "> 2%"
-  ],
-  "dependencies": {}
+  ]
 }
