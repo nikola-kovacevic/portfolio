@@ -6,6 +6,8 @@ const htmlmin = require("gulp-htmlmin");
 const image = require("gulp-image");
 const uglify = require("gulp-uglify-es").default;
 const inlineSource = require("gulp-inline-source");
+const sitemap = require("gulp-sitemap");
+const robots = require("gulp-robots");
 
 const DIST = "./dist";
 const SRC = "./src";
@@ -30,6 +32,7 @@ const DESTINATION = {
   STYLES: `${DIST}/${CSS}`,
   FAVICON: `${DIST}/${FAVICON}`,
   HTML: `${DIST}/**/*.html`,
+  INDEX: `${DIST}/index.html`,
   SW: {
     ORIGINAL: `${DIST}/sw.js`,
     TEMP_FILE: `${TEMP}/sw.js`,
@@ -55,6 +58,10 @@ const TASK = {
   },
   INLINE: {
     SCRIPTS: "inline_scripts",
+  },
+  CREATE: {
+    SITEMAP: "create_sitemap",
+    ROBOTS: "create_robots",
   },
   SERVICE_WORKER: {
     MINIFY: "minify_service_worker",
@@ -159,6 +166,26 @@ gulp.task(TASK.SERVICE_WORKER.MOVE, (done) =>
 
 gulp.task(TASK.CLEAN.TEMP, () => clean(TEMP));
 
+gulp.task(TASK.CREATE.SITEMAP, () =>
+  gulp
+    .src(DESTINATION.HTML, { read: false })
+    .pipe(sitemap({ siteUrl: "https://kovacevic.dev" }))
+    .pipe(gulp.dest(DIST))
+);
+
+gulp.task(TASK.CREATE.ROBOTS, () =>
+  gulp
+    .src(DESTINATION.INDEX)
+    .pipe(
+      robots({
+        useragent: "*",
+        allow: ["assets/"],
+        disallow: [],
+      })
+    )
+    .pipe(gulp.dest(DIST))
+);
+
 gulp.task(
   TASK.SERVICE_WORKER.IMPLEMENT,
   gulp.series(
@@ -171,7 +198,12 @@ gulp.task(
 
 const DEFAULT = gulp.series(
   TASK.CLEAN.SOURCE,
-  gulp.series(gulp.parallel(Object.values(TASK.MINIFY)), TASK.INLINE.SCRIPTS),
+  gulp.series(
+    gulp.parallel(Object.values(TASK.MINIFY)),
+    TASK.INLINE.SCRIPTS,
+    TASK.CREATE.SITEMAP,
+    TASK.CREATE.ROBOTS
+  ),
   TASK.CLEAN.DESTINATION
 );
 

@@ -5,10 +5,10 @@
   "main": "index.js",
   "author": "Nikola Kovacevic",
   "scripts": {
-    "build": "gulp && npm run implement-pwa",
-    "build-pwa": "workbox injectManifest workbox-config.js",
-    "implement-service-worker": "gulp implement_service_worker",
-    "implement-pwa": "npm run build-pwa && npm run implement-service-worker"
+    "build": "gulp && npm run build-pwa",
+    "build-pwa": "npm run create-pwa && npm run implement-service-worker",
+    "create-pwa": "workbox injectManifest workbox-config.js",
+    "implement-service-worker": "gulp implement_service_worker"
   },
   "license": "ISC",
   "devDependencies": {
@@ -20,6 +20,8 @@
     "gulp-htmlmin": "^5.0.1",
     "gulp-image": "^6.1.0",
     "gulp-inline-source": "^4.0.0",
+    "gulp-robots": "^2.0.4",
+    "gulp-sitemap": "^7.6.0",
     "gulp-uglify-es": "^2.0.0"
   },
   "browserslist": [
