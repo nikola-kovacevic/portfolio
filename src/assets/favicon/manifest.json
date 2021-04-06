@@ -4,6 +4,7 @@
   "display": "fullscreen",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
+  "start_url": "/",
   "icons": [
     {
       "src": "/android-icon-36x36.png",

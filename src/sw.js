@@ -3,7 +3,7 @@ importScripts(
 );
 
 if (workbox) {
-  workbox.precaching.precacheAndRoute([]);
+  workbox.precaching.precacheAndRoute(self.__WB_MANIFEST);
   // IMAGES
   workbox.routing.registerRoute(
     /(.*)\.(?:png|gif|jpg|jpeg|ico)/,
