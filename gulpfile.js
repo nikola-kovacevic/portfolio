@@ -1,11 +1,13 @@
 const del = require("del");
 const gulp = require("gulp");
+
 const autoprefixer = require("gulp-autoprefixer");
 const csso = require("gulp-csso");
 const htmlmin = require("gulp-htmlmin");
 const image = require("gulp-image");
 const uglify = require("gulp-uglify-es").default;
 const inlineSource = require("gulp-inline-source");
+
 const sitemap = require("gulp-sitemap");
 const robots = require("gulp-robots");
 
@@ -20,6 +22,11 @@ const CV = "Nikola_Kovacevic_Resume.pdf";
 const SITE_URL = "https://kovacevic.dev";
 const JS = "js";
 const CSS = "css";
+
+const GULP = {
+  FINISH: "finish",
+  DEFAULT: "default",
+};
 
 const SOURCE = {
   IMG: `${SRC}/${IMAGES}/*`,
@@ -69,15 +76,6 @@ const TASK = {
     SITEMAP: "create_sitemap",
     ROBOTS: "create_robots",
   },
-  SERVICE_WORKER: {
-    MINIFY: "minify_service_worker",
-    CLEAN: {
-      ORIGINAL: "clean_original_service_worker",
-      TEMP: "clean_temp_service_worker",
-    },
-    MOVE: "move_temp_service_worker",
-    IMPLEMENT: "implement_service_worker",
-  },
 };
 
 const clean = (...filesAndFolders) =>
@@ -95,7 +93,7 @@ gulp.task(TASK.ASSETS.MOVE_ICONS, (done) =>
   gulp
     .src(SOURCE.FAVICON)
     .pipe(gulp.dest(DESTINATION.FAVICON))
-    .on("finish", () => done())
+    .on(GULP.FINISH, () => done())
 );
 
 gulp.task(TASK.ASSETS.MINIFY_ICONS, (done) =>
@@ -103,7 +101,7 @@ gulp.task(TASK.ASSETS.MINIFY_ICONS, (done) =>
     .src(`${DESTINATION.FAVICON}/*`)
     .pipe(image())
     .pipe(gulp.dest(DESTINATION.FAVICON))
-    .on("finish", () => done())
+    .on(GULP.FINISH, () => done())
 );
 
 gulp.task(
@@ -116,7 +114,7 @@ gulp.task(TASK.MINIFY.IMAGES, (done) =>
     .src(SOURCE.IMG)
     .pipe(image())
     .pipe(gulp.dest(DESTINATION.IMG))
-    .on("finish", () => done())
+    .on(GULP.FINISH, () => done())
 );
 
 gulp.task(TASK.MINIFY.HTML, (done) =>
@@ -124,7 +122,7 @@ gulp.task(TASK.MINIFY.HTML, (done) =>
     .src(SOURCE.HTML)
     .pipe(htmlmin({ collapseWhitespace: true, removeComments: true }))
     .pipe(gulp.dest(DIST))
-    .on("finish", () => done())
+    .on(GULP.FINISH, () => done())
 );
 
 gulp.task(TASK.MINIFY.SCRIPTS, (done) =>
@@ -132,7 +130,7 @@ gulp.task(TASK.MINIFY.SCRIPTS, (done) =>
     .src(SOURCE.SCRIPTS)
     .pipe(uglify())
     .pipe(gulp.dest(DESTINATION.SCRIPTS))
-    .on("finish", () => done())
+    .on(GULP.FINISH, () => done())
 );
 
 gulp.task(TASK.MINIFY.STYLES, () =>
@@ -148,33 +146,14 @@ gulp.task(TASK.INLINE.SCRIPTS, (done) =>
     .src(DESTINATION.HTML)
     .pipe(inlineSource({ compress: false, saveRemote: false }))
     .pipe(gulp.dest(DIST))
-    .on("finish", () => done())
-);
-
-gulp.task(TASK.SERVICE_WORKER.MINIFY, (done) => {
-  return gulp
-    .src(DESTINATION.SW.ORIGINAL)
-    .pipe(uglify())
-    .pipe(gulp.dest(TEMP))
-    .on("finish", () => done());
-});
-
-gulp.task(TASK.SERVICE_WORKER.CLEAN.ORIGINAL, () =>
-  clean(DESTINATION.SW.ORIGINAL)
-);
-
-gulp.task(TASK.SERVICE_WORKER.MOVE, (done) =>
-  gulp
-    .src(DESTINATION.SW.TEMP_FILE)
-    .pipe(gulp.dest(DIST))
-    .on("finish", () => done())
+    .on(GULP.FINISH, () => done())
 );
 
 gulp.task(TASK.ASSETS.MOVE_CV, (done) =>
   gulp
     .src(SOURCE.CV)
     .pipe(gulp.dest(DESTINATION.ASSETS))
-    .on("finish", () => done())
+    .on(GULP.FINISH, () => done())
 );
 
 gulp.task(TASK.CLEAN.TEMP, () => clean(TEMP));
@@ -199,16 +178,6 @@ gulp.task(TASK.CREATE.ROBOTS, () =>
     .pipe(gulp.dest(DIST))
 );
 
-gulp.task(
-  TASK.SERVICE_WORKER.IMPLEMENT,
-  gulp.series(
-    TASK.SERVICE_WORKER.MINIFY,
-    TASK.SERVICE_WORKER.CLEAN.ORIGINAL,
-    TASK.SERVICE_WORKER.MOVE,
-    TASK.CLEAN.TEMP
-  )
-);
-
 const DEFAULT = gulp.series(
   TASK.CLEAN.SOURCE,
   gulp.series(
@@ -220,4 +189,4 @@ const DEFAULT = gulp.series(
   TASK.CLEAN.DESTINATION
 );
 
-gulp.task("default", DEFAULT);
+gulp.task(GULP.DEFAULT, DEFAULT);
