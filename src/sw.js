@@ -4,24 +4,25 @@ importScripts(
 
 if (workbox) {
   workbox.precaching.precacheAndRoute(self.__WB_MANIFEST);
-  // IMAGES
-  workbox.routing.registerRoute(
-    /(.*)\.(?:png|gif|jpg|jpeg|ico)/,
-    workbox.strategies.staleWhileRevalidate({
-      cacheName: "images-cache",
-      plugins: [
-        new workbox.expiration.Plugin({
-          maxEntries: 50,
-          maxAgeSeconds: 30 * 24 * 60 * 60,
-        }),
-      ],
-    })
-  );
-  // FONTS
+
   workbox.routing.registerRoute(
     /^https:\/\/fonts\.googleapis\.com/,
     workbox.strategies.staleWhileRevalidate({
       cacheName: "google-fonts-stylesheets",
+    })
+  );
+
+  workbox.routing.registerRoute(
+    ({ url }) =>
+      url.origin === "https://kovacevic.dev" ||
+      url.origin === "https://www.kovacevic.dev",
+    new workbox.strategies.CacheFirst({
+      cacheName: "requests-cache",
+      plugins: [
+        new workbox.cacheableResponse.Plugin({
+          statuses: [0, 200],
+        }),
+      ],
     })
   );
 }
