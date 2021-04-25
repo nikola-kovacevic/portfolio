@@ -9,16 +9,15 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "del": "^5.1.0",
-    "eslint": "^7.1.0",
+    "del": "^6.0.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
     "gulp-csso": "^4.0.1",
     "gulp-htmlmin": "^5.0.1",
-    "gulp-image": "^6.1.0",
+    "gulp-image": "^6.2.1",
     "gulp-inline-source": "^4.0.0",
     "gulp-robots": "^2.0.4",
-    "gulp-sitemap": "^7.6.0",
+    "gulp-sitemap": "^8.0.0",
     "gulp-uglify-es": "^2.0.0"
   },
   "browserslist": [
